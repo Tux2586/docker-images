@@ -1,0 +1,11 @@
+FROM jenkins/jenkins:lts
+USER root
+
+COPY apache-maven-3.5.2 /usr/share/maven
+RUN git config --global user.email "janardan.kelkar@mulesoft.com" \
+  && git config --global user.name "janardan-kelkar"
+ENV PATH="/usr/share/maven/bin:${PATH}"
+
+ENV MULE_HOME="/usr/share/mule/"
+VOLUME ["${MULE_HOME}/logs", "${MULE_HOME}/conf", "${MULE_HOME}/apps", "${MULE_HOME}/domains"]
+COPY mule-enterprise-standalone-3.9.0 ${MULE_HOME}
